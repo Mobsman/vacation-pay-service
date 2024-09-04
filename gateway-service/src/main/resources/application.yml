@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: vacation-pay-service
+          uri: lb://VACATION-PAY-SERVICE
+          predicates:
+            - Path=/calculate
+
+  application:
+    name: gateway-service
+

@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  discovery-server:
+    container_name: discovery_container
+    build:
+      context: ./discovery-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+  gateway-server:
+    container_name: gateway_container
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+
+  vacation-pay-server:
+    container_name: vacation_pay_container
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
